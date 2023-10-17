@@ -1,5 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:track_flow/feature_2/models/screens/services/dash_logevent.dart';
 import 'package:track_flow/feature_2/models/screens/widgets/transactions.dart';
 import 'package:track_flow/feature_3/models/screens/form_screen.dart';
 import 'package:track_flow/feature_1/screens/login_screen.dart';
@@ -20,11 +22,39 @@ Future<void> signOut() async {
   await FirebaseAuth.instance.signOut();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   User? userId = FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    logCustomEvent(user!);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      analytics.logEvent(name: 'dashboard_paused');
+    } else if (state == AppLifecycleState.resumed) {
+      analytics.logEvent(name: 'dashboard_started');
+    } else if (state == AppLifecycleState.detached) {
+      analytics.logEvent(name: 'dashboard_killed');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    // analytics.logEvent(name: 'dashboard_started');
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

@@ -12,7 +12,6 @@ import 'package:track_flow/feature_1/widgets/color.dart';
 import 'package:track_flow/feature_1/widgets/decoration.dart';
 import 'package:track_flow/feature_1/widgets/routes.dart';
 import 'package:track_flow/feature_1/widgets/txt_style.dart';
-import 'package:track_flow/feature_2/models/screens/home.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
@@ -31,7 +30,7 @@ Future<void> main() async {
     debugPrint("Device is VPnConnected");
   } else {
     runZonedGuarded(() async {
-      runApp(const MyApp());
+      runApp(MyApp());
     }, (error, stacktrace) {
       FirebaseCrashlytics.instance.recordError(error, stacktrace, fatal: true);
     });
@@ -40,7 +39,9 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final String? themeCode;
-  const MyApp({super.key, this.themeCode});
+  MyApp({super.key, this.themeCode});
+
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +60,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         useInheritedMediaQuery: true,
         navigatorKey: navigatorKey,
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: analytics),
+        ],
         home: const SplashScreen(),
         onGenerateRoute: RouteGenerator.generateRoute,
       ),
