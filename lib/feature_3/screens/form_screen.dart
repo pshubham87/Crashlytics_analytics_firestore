@@ -6,7 +6,8 @@ import 'package:track_flow/feature_1/widgets/btn.dart';
 import 'package:track_flow/feature_1/widgets/color.dart';
 import 'package:track_flow/feature_1/widgets/decoration.dart';
 import 'package:track_flow/feature_1/widgets/dialogues.dart';
-import 'package:track_flow/feature_1/widgets/drop_down.dart';
+import 'package:track_flow/feature_3/services/form_services.dart';
+import 'package:track_flow/feature_3/widgets/drop_down.dart';
 import 'package:track_flow/feature_1/widgets/form_field.dart';
 import 'package:track_flow/feature_1/widgets/toast.dart';
 
@@ -140,47 +141,25 @@ class _FormScreenState extends State<FormScreen> {
                               setState(() {
                                 loading = true;
                               });
-                              try {
-                                double amount =
-                                    double.parse(amountController.text);
+                              bool isFormScreenSuccess = formScreen(
+                                  context,
+                                  amountFrom.toString(),
+                                  amountTo.toString(),
+                                  amountController.text,
+                                  userId,
+                                  timestamp.toString());
 
-                                CollectionReference userCollRef =
-                                    FirebaseFirestore.instance
-                                        .collection('client');
-
-                                await userCollRef.add({
-                                  "From Account": amountFrom,
-                                  'To Account': amountTo,
-                                  'Amount': amount.toString(),
-                                  'userId': userId.toString(),
-                                  'timestamp': timestamp.toString(),
-                                });
-
-                                if (mounted) {
-                                  successDialog(
-                                    context: context,
-                                    title: "Success",
-                                    message: "Success !",
-                                  );
-                                }
-                                setState(() {
-                                  amountFrom = null;
-                                  amountTo = null;
-                                  amountController.text = "";
-                                });
-                              } catch (e, stackTrace) {
-                                FirebaseCrashlytics.instance
-                                    .recordError(e, stackTrace);
-                                FirebaseCrashlytics.instance.crash();
-                                showBottomMsg(
+                              if (isFormScreenSuccess) {
+                                successDialog(
                                   context: context,
-                                  msg:
-                                      "Invalid amount entered: ${amountController.text}",
+                                  title: "Success",
+                                  message: "Success !",
                                 );
-                                setState(() {
-                                  loading = false;
-                                });
                               }
+
+                              setState(() {
+                                loading = false;
+                              });
                             },
                     ),
                     const SizedBox(

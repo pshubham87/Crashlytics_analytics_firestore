@@ -2,12 +2,12 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:track_flow/feature_2/widgets/transactions.dart';
-import 'package:track_flow/feature_3/models/screens/form_screen.dart';
 import 'package:track_flow/feature_1/screens/login_screen.dart';
 import 'package:track_flow/feature_1/widgets/btn.dart';
 import 'package:track_flow/feature_1/widgets/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:track_flow/feature_3/screens/form_screen.dart';
 
 class Home extends StatefulWidget {
   static const String routeName = '/Home';
@@ -51,7 +51,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    // analytics.logEvent(name: 'dashboard_started');
+    analytics.logEvent(name: 'dashboard_started');
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -106,7 +106,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         child: Text("No Data Found!"),
                       );
                     }
-
                     if (snapshot.data != null) {
                       return ListView.builder(
                         itemCount: snapshot.data!.docs.length,
@@ -120,7 +119,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           return TransactionWidget(
                             fromAccount: fromAccount,
                             toAccount: toAccount,
-                            amount: amount,
+                            amount: amount.toString(),
                           );
                         },
                       );
