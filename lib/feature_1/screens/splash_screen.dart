@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
-import 'package:track_flow/feature_2/models/screens/home.dart';
+import 'package:track_flow/feature_2/screens/home.dart';
 import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {

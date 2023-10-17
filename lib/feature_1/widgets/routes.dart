@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:track_flow/feature_1/screens/login_screen.dart';
 import 'package:track_flow/feature_1/screens/signup_screen.dart';
 import 'package:track_flow/feature_1/screens/splash_screen.dart';
-import 'package:track_flow/feature_2/models/screens/home.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:track_flow/feature_2/screens/home.dart';
 import 'package:track_flow/feature_3/models/screens/form_screen.dart';
 
 class RouteGenerator {

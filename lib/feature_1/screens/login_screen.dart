@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:track_flow/feature_1/services/signin_services.dart';
-import 'package:track_flow/feature_2/models/screens/home.dart';
 import 'package:track_flow/feature_1/screens/signup_screen.dart';
 import 'package:track_flow/feature_1/widgets/btn.dart';
 import 'package:track_flow/feature_1/widgets/color.dart';
 import 'package:track_flow/feature_1/widgets/decoration.dart';
 import 'package:track_flow/feature_1/widgets/form_field.dart';
+import 'package:track_flow/feature_2/screens/home.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/LoginScreen';

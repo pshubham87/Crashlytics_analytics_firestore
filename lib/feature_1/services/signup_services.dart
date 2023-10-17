@@ -2,7 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:track_flow/feature_1/widgets/toast.dart';
 import 'package:flutter/material.dart';
-import 'package:track_flow/feature_2/models/screens/home.dart';
+import 'package:track_flow/feature_2/screens/home.dart';
 
 Future<bool> signup(BuildContext context, String email, String password) async {
   try {
