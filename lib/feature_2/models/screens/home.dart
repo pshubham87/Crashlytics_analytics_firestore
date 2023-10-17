@@ -1,7 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:track_flow/feature_2/models/screens/services/dash_logevent.dart';
 import 'package:track_flow/feature_2/models/screens/widgets/transactions.dart';
 import 'package:track_flow/feature_3/models/screens/form_screen.dart';
 import 'package:track_flow/feature_1/screens/login_screen.dart';
@@ -31,7 +30,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    logCustomEvent(user!);
   }
 
   @override
