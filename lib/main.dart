@@ -30,7 +30,7 @@ Future<void> main() async {
     debugPrint("Device is VPnConnected");
   } else {
     runZonedGuarded(() async {
-      runApp(MyApp());
+      runApp(const MyApp());
     }, (error, stacktrace) {
       FirebaseCrashlytics.instance.recordError(error, stacktrace, fatal: true);
     });
@@ -39,9 +39,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final String? themeCode;
-  MyApp({super.key, this.themeCode});
-
-  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  const MyApp({super.key, this.themeCode});
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +47,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
     return MultiProvider(
       providers: [

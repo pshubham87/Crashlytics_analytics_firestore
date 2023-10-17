@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:track_flow/feature_1/services/signin_services.dart';
 import 'package:track_flow/feature_2/models/screens/home.dart';
 import 'package:track_flow/feature_1/screens/signup_screen.dart';
 import 'package:track_flow/feature_1/widgets/btn.dart';
 import 'package:track_flow/feature_1/widgets/color.dart';
 import 'package:track_flow/feature_1/widgets/decoration.dart';
 import 'package:track_flow/feature_1/widgets/form_field.dart';
-import 'package:track_flow/feature_1/widgets/toast.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/LoginScreen';
@@ -40,25 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
     password.dispose();
     logIn.dispose();
     super.dispose();
-  }
-
-  Future<void> signIn(String email, String password) async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } catch (e) {
-      if (e is FirebaseAuthException) {
-        if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
-          showBottomMsg(context: context, msg: "Invalid Username Or Password");
-        } else {
-          showBottomMsg(context: context, msg: '${e.message}');
-        }
-      } else {
-        showBottomMsg(context: context, msg: '$e');
-      }
-    }
   }
 
   @override
@@ -210,8 +191,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               setState(() {
                                 loading = true;
                               });
-                              await signIn(
-                                  uNameController.text, passController.text);
+                              await signIn(context, uNameController.text,
+                                  passController.text);
                               if (FirebaseAuth.instance.currentUser != null) {
                                 if (mounted) {
                                   Navigator.of(context)
