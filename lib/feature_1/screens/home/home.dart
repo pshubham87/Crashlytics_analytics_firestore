@@ -1,13 +1,13 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:track_flow/feature_2/widgets/transactions.dart';
-import 'package:track_flow/feature_1/screens/login_screen.dart';
-import 'package:track_flow/feature_1/widgets/btn.dart';
-import 'package:track_flow/feature_1/widgets/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:track_flow/feature_3/screens/form_screen.dart';
+import 'package:track_flow/feature_2/screens/form_screen.dart';
+import 'package:track_flow/feature_2/transactions.dart';
+import 'package:track_flow/feature_1/screens/authenticate/login.dart';
+import 'package:track_flow/widgets/btn.dart';
+import 'package:track_flow/widgets/color.dart';
 
 class Home extends StatefulWidget {
   static const String routeName = '/Home';
@@ -75,7 +75,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     title: "Form Screen",
                     onTap: () {
                       Navigator.of(context).pushNamed(FormScreen.routeName);
-                      analytics.logEvent(name: 'form_screen_button_click');
                     },
                     size: 18,
                     height: 50,
@@ -139,8 +138,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       onTap: () async {
                         await signOut();
                         if (mounted) {
-                          Navigator.of(context)
-                              .pushNamed(LoginScreen.routeName);
+                          Navigator.of(context).pushNamed(Login.routeName);
                           analytics.logEvent(name: 'logout_button_click');
                         }
                       },

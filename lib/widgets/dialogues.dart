@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:track_flow/feature_1/widgets/btn.dart';
-import 'package:track_flow/feature_1/widgets/color.dart';
-import 'package:track_flow/feature_1/widgets/txt_style.dart';
+import 'package:track_flow/widgets/btn.dart';
+import 'package:track_flow/widgets/color.dart';
+import 'package:track_flow/widgets/txt_style.dart';
 
 successDialog({
   required BuildContext context,

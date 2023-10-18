@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:track_flow/feature_1/widgets/color.dart';
+import 'package:track_flow/widgets/color.dart';
 
 class AppDecoration {
   final BuildContext context;

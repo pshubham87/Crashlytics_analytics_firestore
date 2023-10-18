@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:track_flow/feature_1/screens/login_screen.dart';
-import 'package:track_flow/feature_1/services/signup_services.dart';
-import 'package:track_flow/feature_1/widgets/btn.dart';
-import 'package:track_flow/feature_1/widgets/color.dart';
-import 'package:track_flow/feature_1/widgets/decoration.dart';
-import 'package:track_flow/feature_1/widgets/form_field.dart';
+import 'package:track_flow/feature_1/models/firebaseuser.dart';
+import 'package:track_flow/feature_1/models/loginuser.dart';
+import 'package:track_flow/feature_1/screens/authenticate/login.dart';
+import 'package:track_flow/feature_1/screens/home/home.dart';
+import 'package:track_flow/feature_1/services/auth.dart';
+import 'package:track_flow/widgets/btn.dart';
+import 'package:track_flow/widgets/color.dart';
+import 'package:track_flow/widgets/decoration.dart';
+import 'package:track_flow/widgets/form_field.dart';
+import 'package:track_flow/widgets/toast.dart';
 
-class SignUpScreen extends StatefulWidget {
-  static const String routeName = '/SignUpScreen';
-
-  const SignUpScreen({Key? key}) : super(key: key);
+class Register extends StatefulWidget {
+  static const String routeName = '/Register';
+  const Register({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<StatefulWidget> createState() {
+    return _Register();
+  }
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _Register extends State<Register> {
+  final AuthService _auth = AuthService();
   late FocusNode username, password, signUp;
   TextEditingController uNameController = TextEditingController();
   TextEditingController passController = TextEditingController();
@@ -76,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         margin: const EdgeInsets.only(right: 20, top: 20),
                         alignment: Alignment.bottomRight,
                         child: const Text(
-                          "signUp",
+                          "SignUp",
                           style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,
@@ -233,9 +239,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             setState(() {
                               loading = true;
                             });
-                            await signup(context, uNameController.text,
-                                passController.text);
-
+                            dynamic result = await _auth.registerEmailPassword(
+                                LoginUser(
+                                    email: uNameController.text,
+                                    password: passController.text));
+                            if (result is FirebaseUser && result.uid != null) {
+                              if (mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text('Registration successful. ')));
+                                Navigator.of(context).pushNamed(Home.routeName);
+                              }
+                            } else {
+                              if (mounted) {
+                                showBottomMsg(
+                                    context: context, msg: result.code);
+                              }
+                            }
                             setState(() {
                               loading = false;
                             });
@@ -257,8 +278,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           style: TextStyle(color: Color(0xffF5591F)),
                         ),
                         onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(LoginScreen.routeName);
+                          Navigator.of(context).pushNamed(Login.routeName);
                         },
                       )
                     ],

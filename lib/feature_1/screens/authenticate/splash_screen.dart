@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
-import 'package:track_flow/feature_2/screens/home.dart';
-import 'login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:track_flow/feature_1/screens/authenticate/handler.dart';
+import 'package:track_flow/feature_1/screens/home/home.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  static const String routeName = '/SplashScreen';
+
+  const SplashScreen({
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => StartState();
@@ -15,35 +19,23 @@ class StartState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    checkUserStatus();
+    checkUser(context);
   }
 
-  void checkUserStatus() async {
+  Future<void> checkUser(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 2));
 
-    User? user = FirebaseAuth.instance.currentUser;
+    final user = FirebaseAuth.instance.currentUser;
 
-    if (user != null) {
-      debugPrint("User is signed in: ${user.uid}");
-      navigateToMainScreen();
+    if (user == null) {
+      if (mounted) {
+        Navigator.of(context).pushNamed(Handler.routeName);
+      }
     } else {
-      debugPrint("User is not signed in");
-      navigateToLoginScreen();
+      if (mounted) {
+        Navigator.of(context).pushNamed(Home.routeName);
+      }
     }
-  }
-
-  void navigateToMainScreen() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const Home()),
-    );
-  }
-
-  void navigateToLoginScreen() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginScreen()),
-    );
   }
 
   @override
@@ -67,7 +59,7 @@ class StartState extends State<SplashScreen> {
           ),
           Center(
             child: Image.asset("assets/images/app_logo.png"),
-          )
+          ),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:track_flow/feature_1/widgets/toast.dart';
+import 'package:track_flow/widgets/toast.dart';
 
 formScreen(BuildContext context, String amountFrom, String amountTo,
     String amountController, String userId, String timestamp) async {
@@ -21,7 +21,6 @@ formScreen(BuildContext context, String amountFrom, String amountTo,
     return true;
   } catch (e) {
     FirebaseCrashlytics.instance.recordError(e, StackTrace.current);
-    // FirebaseCrashlytics.instance.crash();
     showBottomMsg(
       context: context,
       msg: "Invalid amount entered: $amountController",

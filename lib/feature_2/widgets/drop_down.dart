@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:track_flow/feature_1/widgets/color.dart';
-import 'package:track_flow/feature_1/widgets/decoration.dart';
-import 'package:track_flow/feature_1/widgets/txt_style.dart';
+import 'package:track_flow/widgets/color.dart';
+import 'package:track_flow/widgets/decoration.dart';
+import 'package:track_flow/widgets/txt_style.dart';
 
 class CustomDropdownField<T> extends StatelessWidget {
   final String? label;

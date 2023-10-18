@@ -1,23 +1,27 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:track_flow/feature_1/services/signin_services.dart';
-import 'package:track_flow/feature_1/screens/signup_screen.dart';
-import 'package:track_flow/feature_1/widgets/btn.dart';
-import 'package:track_flow/feature_1/widgets/color.dart';
-import 'package:track_flow/feature_1/widgets/decoration.dart';
-import 'package:track_flow/feature_1/widgets/form_field.dart';
-import 'package:track_flow/feature_2/screens/home.dart';
+import 'package:track_flow/feature_1/models/firebaseuser.dart';
+import 'package:track_flow/feature_1/models/loginuser.dart';
+import 'package:track_flow/feature_1/screens/authenticate/register.dart';
+import 'package:track_flow/feature_1/screens/home/home.dart';
+import 'package:track_flow/feature_1/services/auth.dart';
+import 'package:track_flow/widgets/btn.dart';
+import 'package:track_flow/widgets/color.dart';
+import 'package:track_flow/widgets/decoration.dart';
+import 'package:track_flow/widgets/form_field.dart';
+import 'package:track_flow/widgets/toast.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const String routeName = '/LoginScreen';
-
-  const LoginScreen({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  static const String routeName = '/Login';
+  const Login({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<StatefulWidget> createState() {
+    return _Login();
+  }
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _Login extends State<Login> {
+  final AuthService _auth = AuthService();
   late FocusNode username, password, logIn;
   TextEditingController uNameController = TextEditingController();
   TextEditingController passController = TextEditingController();
@@ -187,21 +191,30 @@ class _LoginScreenState extends State<LoginScreen> {
                               passController.text.isEmpty
                           ? null
                           : () async {
-                              FocusScope.of(context).requestFocus(FocusNode());
                               setState(() {
                                 loading = true;
                               });
-                              await signIn(context, uNameController.text,
-                                  passController.text);
-                              if (FirebaseAuth.instance.currentUser != null) {
+
+                              dynamic result = await _auth.signInEmailPassword(
+                                LoginUser(
+                                    email: uNameController.text,
+                                    password: passController.text),
+                              );
+                              if (result is FirebaseUser &&
+                                  result.uid != null) {
                                 if (mounted) {
                                   Navigator.of(context)
                                       .pushNamed(Home.routeName);
                                 }
+                              } else {
+                                if (mounted) {
+                                  showBottomMsg(
+                                      context: context, msg: result.code);
+                                }
+                                setState(() {
+                                  loading = false;
+                                });
                               }
-                              setState(() {
-                                loading = false;
-                              });
                             },
                     ),
                   ),
@@ -221,8 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(color: Color(0xffF5591F)),
                           ),
                           onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(SignUpScreen.routeName);
+                            Navigator.of(context).pushNamed(Register.routeName);
                           },
                         )
                       ],
