@@ -35,6 +35,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    analytics.logEvent(name: 'dashboard_started');
+
     super.dispose();
   }
 
@@ -51,8 +53,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    analytics.logEvent(name: 'dashboard_started');
-
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -75,6 +75,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     title: "Form Screen",
                     onTap: () {
                       Navigator.of(context).pushNamed(FormScreen.routeName);
+                      analytics.logEvent(name: 'form_screen_button_click');
                     },
                     size: 18,
                     height: 50,
@@ -140,6 +141,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         if (mounted) {
                           Navigator.of(context)
                               .pushNamed(LoginScreen.routeName);
+                          analytics.logEvent(name: 'logout_button_click');
                         }
                       },
                       width: 100,

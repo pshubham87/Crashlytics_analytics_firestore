@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:track_flow/feature_1/widgets/btn.dart';
 import 'package:track_flow/feature_1/widgets/color.dart';
@@ -9,7 +7,6 @@ import 'package:track_flow/feature_1/widgets/dialogues.dart';
 import 'package:track_flow/feature_3/services/form_services.dart';
 import 'package:track_flow/feature_3/widgets/drop_down.dart';
 import 'package:track_flow/feature_1/widgets/form_field.dart';
-import 'package:track_flow/feature_1/widgets/toast.dart';
 
 class FormScreen extends StatefulWidget {
   static const String routeName = '/FormScreen';
@@ -141,21 +138,25 @@ class _FormScreenState extends State<FormScreen> {
                               setState(() {
                                 loading = true;
                               });
-                              bool isFormScreenSuccess = formScreen(
-                                  context,
-                                  amountFrom.toString(),
-                                  amountTo.toString(),
-                                  amountController.text,
-                                  userId,
-                                  timestamp.toString());
-
-                              if (isFormScreenSuccess) {
-                                successDialog(
-                                  context: context,
-                                  title: "Success",
-                                  message: "Success !",
-                                );
-                              }
+                              formScreen(
+                                context,
+                                amountFrom.toString(),
+                                amountTo.toString(),
+                                amountController.text,
+                                userId,
+                                timestamp.toString(),
+                              ).then((success) {
+                                if (success) {
+                                  successDialog(
+                                    context: context,
+                                    title: "Success",
+                                    message: "Success !",
+                                  );
+                                  amountController.clear();
+                                  amountTo = null;
+                                  amountFrom = null;
+                                }
+                              });
 
                               setState(() {
                                 loading = false;

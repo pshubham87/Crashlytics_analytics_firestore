@@ -25,8 +25,8 @@ Future<void> main() async {
   var connectivityResult = await Connectivity().checkConnectivity();
   final isVPNConnected = connectivityResult == ConnectivityResult.vpn;
 
-  if (isJailbroken) {
-  } else if (isVPNConnected) {
+  if (isJailbroken || isVPNConnected) {
+    FirebaseCrashlytics.instance.crash();
     debugPrint("Device is VPnConnected");
   } else {
     runZonedGuarded(() async {
