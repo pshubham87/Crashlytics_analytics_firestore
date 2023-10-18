@@ -138,6 +138,7 @@ class _FormScreenState extends State<FormScreen> {
                               setState(() {
                                 loading = true;
                               });
+
                               formScreen(
                                 context,
                                 amountFrom.toString(),

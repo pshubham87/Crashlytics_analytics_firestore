@@ -75,6 +75,14 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     title: "Form Screen",
                     onTap: () {
                       Navigator.of(context).pushNamed(FormScreen.routeName);
+                      analytics.logEvent(
+                        name: 'form_screen_button_click',
+                        parameters: {
+                          'from_account': "20",
+                          'to_account': "30",
+                          'amount': "40",
+                        },
+                      );
                     },
                     size: 18,
                     height: 50,

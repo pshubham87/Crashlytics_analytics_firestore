@@ -12,15 +12,14 @@ import 'package:track_flow/widgets/toast.dart';
 
 class Login extends StatefulWidget {
   static const String routeName = '/Login';
-  const Login({super.key});
+
+  const Login({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return _Login();
-  }
+  State<Login> createState() => _LoginState();
 }
 
-class _Login extends State<Login> {
+class _LoginState extends State<Login> {
   final AuthService _auth = AuthService();
   late FocusNode username, password, logIn;
   TextEditingController uNameController = TextEditingController();
