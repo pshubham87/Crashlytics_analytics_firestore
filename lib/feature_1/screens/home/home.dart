@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:track_flow/feature_2/services/home_log_controller.dart';
 import 'package:track_flow/feature_2/screens/form_screen.dart';
-import 'package:track_flow/feature_2/transactions.dart';
+import 'package:track_flow/feature_1/widget/transactions.dart';
 import 'package:track_flow/feature_1/screens/authenticate/login.dart';
 import 'package:track_flow/widgets/btn.dart';
 import 'package:track_flow/widgets/color.dart';
@@ -79,11 +79,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                       Navigator.of(context).pushNamed(FormScreen.routeName);
                       analytics.logEvent(
                         name: 'form_screen_button_click',
-                        parameters: {
-                          'from_account': "20",
-                          'to_account': "30",
-                          'amount': "40",
-                        },
                       );
                     },
                     size: 18,

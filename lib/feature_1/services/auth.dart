@@ -10,7 +10,7 @@ class AuthService {
     return user != null ? FirebaseUser(uid: user.uid) : null;
   }
 
-  // //auth change user stream
+  //auth change user stream
   Stream<FirebaseUser?> get user {
     return _auth.authStateChanges().map(_firebaseUser);
   }

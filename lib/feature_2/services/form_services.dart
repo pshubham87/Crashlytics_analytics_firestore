@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:track_flow/widgets/toast.dart';
 
 formScreen(BuildContext context, String amountFrom, String amountTo,
-    String amountController, String userId, String timestamp) async {
+    String amountController, String userId, String timeStamp) async {
   try {
     double amount = double.parse(amountController.toString());
 
@@ -16,7 +16,7 @@ formScreen(BuildContext context, String amountFrom, String amountTo,
       'To Account': amountTo,
       'Amount': amount,
       'userId': userId.toString(),
-      'timestamp': timestamp.toString(),
+      'timeStamp': timeStamp.toString(),
     });
     return true;
   } catch (e) {

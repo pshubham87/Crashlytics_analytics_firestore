@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:track_flow/feature_1/screens/authenticate/handler.dart';
 import 'package:track_flow/feature_1/screens/authenticate/register.dart';
 import 'package:track_flow/feature_1/screens/authenticate/splash_screen.dart';
 import 'package:track_flow/feature_1/screens/home/home.dart';
@@ -29,11 +28,6 @@ class RouteGenerator {
       case FormScreen.routeName:
         return PageTransition(
             child: const FormScreen(),
-            settings: settings,
-            type: PageTransitionType.rightToLeft);
-      case Handler.routeName:
-        return PageTransition(
-            child: const Handler(),
             settings: settings,
             type: PageTransitionType.rightToLeft);
 

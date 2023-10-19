@@ -23,7 +23,7 @@ class _FormScreenState extends State<FormScreen> with WidgetsBindingObserver {
   TextEditingController emailidController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   bool loading = false;
-  DateTime timestamp = DateTime.now();
+  DateTime timeStamp = DateTime.now();
   String userId = FirebaseAuth.instance.currentUser!.uid.toString();
   final EventLoggerController _eventLoggerController = EventLoggerController();
 
@@ -55,7 +55,6 @@ class _FormScreenState extends State<FormScreen> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-
     super.dispose();
   }
 
@@ -168,7 +167,7 @@ class _FormScreenState extends State<FormScreen> with WidgetsBindingObserver {
                                 amountTo.toString(),
                                 amountController.text,
                                 userId,
-                                timestamp.toString(),
+                                timeStamp.toString(),
                               ).then((success) {
                                 if (success) {
                                   successDialog(

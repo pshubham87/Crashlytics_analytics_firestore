@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:track_flow/feature_1/screens/authenticate/handler.dart';
+import 'package:track_flow/feature_1/screens/authenticate/login.dart';
 import 'package:track_flow/feature_1/screens/home/home.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class StartState extends State<SplashScreen> {
 
     if (user == null) {
       if (mounted) {
-        Navigator.of(context).pushNamed(Handler.routeName);
+        Navigator.of(context).pushNamed(Login.routeName);
       }
     } else {
       if (mounted) {
