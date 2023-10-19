@@ -1,5 +1,7 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:track_flow/feature_2/services/home_log_controller.dart';
 import 'package:track_flow/feature_2/services/form_services.dart';
 import 'package:track_flow/feature_2/widgets/drop_down.dart';
 import 'package:track_flow/widgets/btn.dart';
@@ -17,12 +19,13 @@ class FormScreen extends StatefulWidget {
   State<FormScreen> createState() => _FormScreenState();
 }
 
-class _FormScreenState extends State<FormScreen> {
+class _FormScreenState extends State<FormScreen> with WidgetsBindingObserver {
   TextEditingController emailidController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   bool loading = false;
   DateTime timestamp = DateTime.now();
   String userId = FirebaseAuth.instance.currentUser!.uid.toString();
+  final EventLoggerController _eventLoggerController = EventLoggerController();
 
   List<String> fromAccount = [
     "State Bank",
@@ -43,12 +46,33 @@ class _FormScreenState extends State<FormScreen> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    analytics.logEvent(name: 'form_started');
+    _eventLoggerController.logScreenEvent('FormScreen_started');
     super.initState();
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+
     super.dispose();
+  }
+
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      // App is paused
+      analytics.logEvent(name: 'form_paused');
+    } else if (state == AppLifecycleState.resumed) {
+      // App is resumed
+      analytics.logEvent(name: 'form_resumed');
+    } else if (state == AppLifecycleState.detached) {
+      // App is detached
+      analytics.logEvent(name: 'form_killed');
+    }
   }
 
   @override
@@ -138,7 +162,6 @@ class _FormScreenState extends State<FormScreen> {
                               setState(() {
                                 loading = true;
                               });
-
                               formScreen(
                                 context,
                                 amountFrom.toString(),

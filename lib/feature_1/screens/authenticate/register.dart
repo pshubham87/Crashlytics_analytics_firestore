@@ -93,7 +93,7 @@ class _Register extends State<Register> {
                   )),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 80,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -170,54 +170,54 @@ class _Register extends State<Register> {
                   ),
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: CustomFormField(
-                    prefix: const Icon(
-                      Icons.password,
-                      color: Color(0xffF5591F),
-                    ),
-                    fillColor: const Color.fromARGB(255, 238, 238, 238),
-                    maxLength: 30,
-                    label: "Confirm Password",
-                    labelColor: Colors.white,
-                    border: AppDecoration.of(context).border2,
-                    hint: "Confirm Password",
-                    obscure: obscure,
-                    focus: password,
-                    controller: passController,
-                    inputType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                    suffix: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            obscure = !obscure;
-                          });
-                        },
-                        icon: obscure
-                            ? Icon(
-                                Icons.visibility_off_outlined,
-                                color: AppColor.of(context)
-                                    .primary
-                                    .withOpacity(0.3),
-                                size: 25.0,
-                              )
-                            : Icon(
-                                Icons.visibility_outlined,
-                                color: AppColor.of(context).primary,
-                                size: 25.0,
-                              )),
-                    onChanged: (String val) {
-                      setState(() {});
-                    },
-                    onEditDone: () {
-                      password.unfocus();
-                      FocusScope.of(context).requestFocus(signUp);
-                    },
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 25),
+                //   child: CustomFormField(
+                //     prefix: const Icon(
+                //       Icons.password,
+                //       color: Color(0xffF5591F),
+                //     ),
+                //     fillColor: const Color.fromARGB(255, 238, 238, 238),
+                //     maxLength: 30,
+                //     label: "Confirm Password",
+                //     labelColor: Colors.white,
+                //     border: AppDecoration.of(context).border2,
+                //     hint: "Confirm Password",
+                //     obscure: obscure,
+                //     focus: password,
+                //     controller: passController,
+                //     inputType: TextInputType.text,
+                //     textInputAction: TextInputAction.next,
+                //     suffix: IconButton(
+                //         onPressed: () {
+                //           setState(() {
+                //             obscure = !obscure;
+                //           });
+                //         },
+                //         icon: obscure
+                //             ? Icon(
+                //                 Icons.visibility_off_outlined,
+                //                 color: AppColor.of(context)
+                //                     .primary
+                //                     .withOpacity(0.3),
+                //                 size: 25.0,
+                //               )
+                //             : Icon(
+                //                 Icons.visibility_outlined,
+                //                 color: AppColor.of(context).primary,
+                //                 size: 25.0,
+                //               )),
+                //     onChanged: (String val) {
+                //       setState(() {});
+                //     },
+                //     onEditDone: () {
+                //       password.unfocus();
+                //       FocusScope.of(context).requestFocus(signUp);
+                //     },
+                //   ),
+                // ),
                 const SizedBox(
-                  height: 40,
+                  height: 80,
                 ),
 
                 //signUp
@@ -264,7 +264,7 @@ class _Register extends State<Register> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
@@ -283,9 +283,6 @@ class _Register extends State<Register> {
                       )
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
                 ),
               ],
             )));

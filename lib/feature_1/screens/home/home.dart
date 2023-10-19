@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:track_flow/feature_2/services/home_log_controller.dart';
 import 'package:track_flow/feature_2/screens/form_screen.dart';
 import 'package:track_flow/feature_2/transactions.dart';
 import 'package:track_flow/feature_1/screens/authenticate/login.dart';
@@ -25,18 +26,19 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   User? userId = FirebaseAuth.instance.currentUser;
   User? user = FirebaseAuth.instance.currentUser;
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  final EventLoggerController _eventLoggerController = EventLoggerController();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _eventLoggerController.logScreenEvent('FormScreen_started');
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     analytics.logEvent(name: 'dashboard_started');
-
     super.dispose();
   }
 

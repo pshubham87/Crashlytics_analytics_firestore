@@ -10,20 +10,9 @@ class AuthService {
     return user != null ? FirebaseUser(uid: user.uid) : null;
   }
 
-  //auth change user stream
+  // //auth change user stream
   Stream<FirebaseUser?> get user {
     return _auth.authStateChanges().map(_firebaseUser);
-  }
-
-//sign in ano
-  Future signInAnonymous() async {
-    try {
-      UserCredential userCredential = await _auth.signInAnonymously();
-      User? user = userCredential.user;
-      return _firebaseUser(user);
-    } catch (e) {
-      return FirebaseUser(code: e.toString(), uid: null);
-    }
   }
 
 //sign in email and address
