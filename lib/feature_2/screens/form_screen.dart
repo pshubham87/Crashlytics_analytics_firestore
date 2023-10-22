@@ -1,7 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:track_flow/feature_2/services/home_log_controller.dart';
+import 'package:track_flow/feature_2/services/log_controller.dart';
 import 'package:track_flow/feature_2/services/form_services.dart';
 import 'package:track_flow/feature_2/widgets/drop_down.dart';
 import 'package:track_flow/widgets/btn.dart';

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:track_flow/feature_2/services/home_log_controller.dart';
+import 'package:track_flow/feature_2/services/log_controller.dart';
 import 'package:track_flow/feature_2/screens/form_screen.dart';
 import 'package:track_flow/feature_1/widget/transactions.dart';
 import 'package:track_flow/feature_1/screens/authenticate/login.dart';
